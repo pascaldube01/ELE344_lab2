@@ -1,4 +1,5 @@
 *
 !*.do
-!*.vhdl
+!*.vhd
+!*.sdc
 !*.gitignore
