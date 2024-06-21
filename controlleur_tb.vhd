@@ -3,50 +3,102 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 use ieee.std_logic_misc.ALL;
 
-ENTITY controller_tb IS
+ENTITY controlleur_tb IS
 end controlleur_tb;
 
 
 architecture controlleur_test of controlleur_tb is
 		--signaux in/out du controlleur
-        SIGNAL OP 			: in std_logic_vector(5 DOWNTO 0);
-		SIGNAL Funct 		: in std_logic_vector(5 DOWNTO 0);
-        SIGNAL regDst		: out std_logic;
-        SIGNAL jump			: out std_logic;
-        SIGNAL branch		: out std_logic;
-        SIGNAL memRead		: out std_logic;
-        SIGNAL memToReg		: out std_logic;
-        SIGNAL memWrite		: out std_logic;
-		SIGNAL ALUSrc		: out std_logic;
-		SIGNAL regWrite		: out std_logic;
-		SIGNAL ALUControl	: out std_logic_vector (1 DOWNTO 0));
+        SIGNAL OP 			: std_logic_vector(5 DOWNTO 0);
+		SIGNAL Funct 		: std_logic_vector(5 DOWNTO 0);
+        SIGNAL regDst		: std_logic;
+        SIGNAL jump			: std_logic;
+        SIGNAL branch		: std_logic;
+        SIGNAL memRead		: std_logic;
+        SIGNAL memToReg		: std_logic;
+        SIGNAL memWrite		: std_logic;
+		SIGNAL ALUSrc		: std_logic;
+		SIGNAL regWrite		: std_logic;
+		SIGNAL ALUControl	: std_logic_vector (3 DOWNTO 0);
 
+		signal instruction 	: string(1 TO 4);
 		CONSTANT PERIODE : time := 20 ns;
 
 
 
 BEGIN
 	--instanciation du controlleur et port mappings
-	CONTROLLER : ENTITY work.controller(control);
-	PORT MAP (OP, Funct, regDst, jump, branch, memRead, memToReg, memWrite ALUSrc, regWrite, aluControl);
+	CONTROLLEUR : ENTITY work.controlleur(control)
+	PORT MAP (OP, Funct, regDst, jump, branch, memRead, memToReg, memWrite, ALUSrc, regWrite, aluControl);
 	
-	test : process
 	
-	OP <= "100011" -- LW
-	wait for (PERIODE);
 	
-	OP <= "101011" -- SW
-	wait for (PERIODE);
-	
-	OP <= "000100" -- BEQ
-	wait for (PERIODE);
+--signaux de debug pour modelsim
+    PROCESS(OP)
+    BEGIN
+      CASE OP IS
+        WHEN  "100011"  => instruction <= "LW  "; --instruction I
+        WHEN  "101011"  => instruction <= "SW  ";
+        WHEN  "000100"  => instruction <= "BEQ ";
+        WHEN  "001000"  => instruction <= "ADDI";
+        WHEN  "000010"  => instruction <= "J   ";
+        WHEN OTHERS => 							-- instruction R
+        	case Funct is
+        		WHEN OTHERS => instruction <= "----"-- erreure
+      END CASE;
+    END PROCESS;
 
-	OP <= "001000" -- ADDI
-	wait for (PERIODE);
+  
 	
-	OP <= "000010" -- J
-	wait for (PERIODE);
 	
-	end test;
+	
+	
+	
+	
+	
+	--on teste chacune des instructions
+	test : process
+	begin
+		--instruction type I
+		Funct <= "000000"; --func est seulement utile sur les instructions R
+
+		OP <= "100011"; -- LW
+		wait for (PERIODE);
+		
+		OP <= "101011"; -- SW
+		wait for (PERIODE);
+		
+		OP <= "000100"; -- BEQ
+		wait for (PERIODE);
+
+		OP <= "001000"; -- ADDI
+		wait for (PERIODE);
+		
+		OP <= "000010"; -- J;
+		wait for (PERIODE);
+
+
+
+		--instructions type R
+		op <= "000000";		--les instructions type R ont toutes un opcode de 0
+
+		Funct <= "100000";	--ADD
+		wait for (PERIODE);
+
+		Funct <= "100010";	--SUB
+		wait for (PERIODE);
+
+		Funct <= "100100";	--AND
+		wait for (PERIODE);
+
+		Funct <= "100101";	--OR
+		wait for (PERIODE);
+
+		Funct <= "101010";	--SLT 
+		wait for (PERIODE);
+		
+	
+		
+	end process test;
 end controlleur_test;
 
