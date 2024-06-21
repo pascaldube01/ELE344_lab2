@@ -29,12 +29,12 @@ architecture controlleur_test of controlleur_tb is
 BEGIN
 	--instanciation du controlleur et port mappings
 	CONTROLLEUR : ENTITY work.controlleur(control)
-	PORT MAP (OP, Funct, regDst, jump, branch, memRead, memToReg, memWrite, ALUSrc, regWrite, aluControl);
+	PORT MAP (OP, Funct, regWrite, regDst, ALUSrc, branch, memRead, memWrite, memToReg, jump, aluControl);
 	
 	
 	
 --signaux de debug pour modelsim
-    PROCESS(OP)
+    PROCESS(OP, Funct)
     BEGIN
       CASE OP IS
         WHEN  "100011"  => instruction <= "LW  "; --instruction I
@@ -44,7 +44,13 @@ BEGIN
         WHEN  "000010"  => instruction <= "J   ";
         WHEN OTHERS => 							-- instruction R
         	case Funct is
-        		WHEN OTHERS => instruction <= "----"-- erreure
+        		WHEN "100000" => instruction <= "ADD ";
+        		WHEN "100010" => instruction <= "SUB ";
+        		WHEN "100100" => instruction <= "AND ";
+        		WHEN "100101" => instruction <= "OR  ";
+        		WHEN "101010" => instruction <= "SLT ";
+        		WHEN OTHERS => instruction <= "----";	-- erreure
+        	end case;
       END CASE;
     END PROCESS;
 

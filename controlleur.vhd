@@ -8,14 +8,14 @@ ENTITY controlleur IS
   PORT (	--entres et sorties telles que specifiees dans l'enonce
         OP 			: in std_logic_vector(5 DOWNTO 0);
 		Funct 		: in std_logic_vector(5 DOWNTO 0);
+		regWrite	: out std_logic;
         regDst		: out std_logic;
-        jump		: out std_logic;
+		ALUSrc		: out std_logic;
         branch		: out std_logic;
         memRead		: out std_logic;
-        memToReg	: out std_logic;
         memWrite	: out std_logic;
-		ALUSrc		: out std_logic;
-		regWrite	: out std_logic;
+        memToReg	: out std_logic;
+        jump		: out std_logic;
 		ALUControl	: out std_logic_vector (3 DOWNTO 0));
 END controlleur;
 
@@ -52,7 +52,7 @@ begin
 				jump <= '0';
 			elsif (OP = "000100") THEN --BEQ
 				regWrite <= '0';
-				regDst <= '0';
+				regDst <= '-';
 				ALUSrc <= '0';
 				branch <= '1';
 				memRead <= '0';
@@ -70,7 +70,7 @@ begin
 				memToReg <= '0';
 				aluOP <= "00";
 				jump <= '0';
-			elsif (OP = "001000") THEN --J
+			elsif (OP = "000010") THEN --J
 				regWrite <= '0';
 				regDst <= '-';
 				ALUSrc <= '-';
