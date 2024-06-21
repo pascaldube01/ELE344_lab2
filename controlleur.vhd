@@ -22,7 +22,7 @@ END controller;
 
 architecture control of controller IS
 --signal interne qui relier le decodeur principal a alucon
-	SIGNAL aluOP : std_logic_vector (3 DOWNTO 0);
+	SIGNAL aluOP : std_logic_vector (1 DOWNTO 0);
 
 begin
 
