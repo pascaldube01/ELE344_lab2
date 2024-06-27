@@ -1,7 +1,7 @@
 --========================= imem.vhd ============================
--- ELE-343 Conception des systèmes ordinés
--- HIVER 2017, Ecole de technologie supérieure
--- Auteur : Chakib Tadj, Vincent Trudel-Lapierre, Yves Blaquière
+-- ELE-343 Conception des systï¿½mes ordinï¿½s
+-- HIVER 2017, Ecole de technologie supï¿½rieure
+-- Auteur : Chakib Tadj, Vincent Trudel-Lapierre, Yves Blaquiï¿½re
 -- =============================================================
 -- Description: imem        
 -- =============================================================
@@ -19,28 +19,30 @@ END;  -- imem;
 
 ARCHITECTURE imem_arch OF imem IS
 
-  CONSTANT TAILLE_ROM : positive := 17;  -- taille de la rom (modifier au besoin)
+  CONSTANT TAILLE_ROM : positive := 19;  -- taille de la rom (modifier au besoin)
   TYPE romtype IS ARRAY (0 TO TAILLE_ROM) OF std_logic_vector(31 DOWNTO 0);
 
   CONSTANT Rom : romtype := (
-    0  => x"20020005",
-    1  => x"2003000C",
-    2  => x"2067FFF7",
-    3  => x"00E22025",
-    4  => x"00642824",
-    5  => x"00A42820",
-    6  => x"10A7000A",
-    7  => x"0064202A",
-    8  => x"10800001",
-    9  => x"20050000",
-    10 => x"00E2202A",
-    11 => x"00853820",
-    12 => x"00E23822",
-    13 => x"AC670044",
-    14 => x"8C020050",
-    15 => x"08000011",
-    16 => x"20020001",
-    17 => x"AC020054");
+    0  => x"20030001",
+    1  => x"00032820",
+    2  => x"00a33822",
+    3  => x"20640004",
+    4  => x"00641024",
+    5  => x"00472825",
+    6  => x"10e30005",
+    7  => x"0085102a",
+    8  => x"ac841fd7",
+    9  => x"8ca21fdb",
+    10 => x"2047fffc",
+    11 => x"08000006",
+    12 => x"00e2202a",
+    13 => x"00e31024",
+    14 => x"8c471fdb",
+    15 => x"ac452003",
+    16 => x"10a70001",
+    17 => x"00a33825",
+	 18 => x"8ce42003",
+    19 => x"08000000");
 BEGIN
   PROCESS (adresse)
   BEGIN
