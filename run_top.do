@@ -4,6 +4,8 @@ vcom -93 -work work controlleur.vhd
 vcom -93 -work work ual.vhd
 vcom -93 -work work datapath.vhd
 vcom -93 -work work mips.vhd
+vcom -93 -work work imem.vhd
+vcom -93 -work work dmem.vhd
 vcom -93 -work work top.vhd
 
 vsim top

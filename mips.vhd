@@ -14,7 +14,7 @@ ENTITY mips IS
 			MemWrite	: out std_logic;
 			PC			: out std_logic_vector (31 downto 0);
 			WriteData	: out std_logic_vector (31 downto 0);
-			AluResult	: out std_logic_vector (31 downto 0);
+			AluResult	: out std_logic_vector (31 downto 0)
 		);
 end mips;
 
@@ -36,8 +36,8 @@ begin
 	--instanciation du controlleur
 	CONTROLLEUR : ENTITY work.controlleur(control)
 	PORT MAP (	--entrees provenant de l'exterieur
-				OP => Instruction[31..26],
-				Funct => Instruction[5..0],
+				OP => Instruction (31 DOWNTO 26),
+				Funct => Instruction (5 DOWNTO 0),
 				--sorties vers le datapath
 				regWrite => regWrite_s,
 				regDst => regDst_s,
@@ -45,7 +45,7 @@ begin
 				branch => branch_s,
 				memRead => memRead_s,
 				memWrite => memWrite_s,
-				memToReg => memToReg-s,
+				memToReg => memToReg_s,
 				jump => jump_s,
 				aluControl => ALUControl_s);
 				

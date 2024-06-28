@@ -5,13 +5,13 @@ use ieee.std_logic_misc.ALL;
 
 ENTITY top is
 	port(
-		reset 		: in std_logic
-		clock 		: in std_logic
+		reset 		: in std_logic;
+		clock 		: in std_logic;
 		
 		PC			: out std_logic_vector (31 downto 0);
 		WriteData	: out std_logic_vector (31 downto 0);
 		AluResult	: out std_logic_vector (31 downto 0));
-end run;
+end top;
 
 
 architecture run of top is
@@ -43,7 +43,7 @@ begin
  				WriteData => WriteData_s,
  				AluResult => AluResult_s,
  				memRead => memRead_s,
- 				memWrite => memWrite_s,);
+ 				memWrite => memWrite_s);
  			
  			
  	-- instanciaiton de la memoire de donnees
@@ -57,8 +57,8 @@ begin
 				readData => ReadData_S );
 
 --mise des signaus en sortie du top
-PC <= PC_s
-WriteData <= WriteData_s
-AluResult <= AluResult_s
+PC <= PC_s;
+WriteData <= WriteData_s;
+AluResult <= AluResult_s;
 
 end run;
