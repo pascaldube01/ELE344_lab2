@@ -1,5 +1,6 @@
 vlib work
 
+vcom -93 -work work regfile.vhd
 vcom -93 -work work controlleur.vhd
 vcom -93 -work work ual.vhd
 vcom -93 -work work datapath.vhd

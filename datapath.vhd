@@ -45,34 +45,12 @@ signal pcNextBr:std_logic_vector(31 DOWNTO 0);
 signal pcNext:std_logic_vector(31 DOWNTO 0);
 signal signal_pc:std_logic_vector(31 downto 0);
 
-
-component ual is
-port(
-	ualControl : IN  std_logic_vector(3 DOWNTO 0);
-	srcA, srcB : IN  std_logic_vector(31 DOWNTO 0);
-	result     : OUT std_logic_vector(31 DOWNTO 0);
-	cout, zero : OUT std_logic
-);
-
-end component;
-
-component regfile is
-port(
-
-	clk          : IN  std_logic;
-	we           : IN  std_logic; -- Write enable (RegWrite)
-	ra1, ra2, wa : IN  std_logic_vector(4 DOWNTO 0);  -- Adresses de lecture
-	wd           : IN  std_logic_vector(31 DOWNTO 0);  -- Donnee d'ecriture
-	rd1, rd2     : OUT std_logic_vector(31 DOWNTO 0)  -- Donnees de lecture	
-);
-
-end component;
-
-
-
 begin
 
-registre:regfile
+
+
+
+registre : ENTITY work.RegFile(RegFile_arch)
 port map(
 	clk=>clock,
 	we=>RegWrite,
@@ -84,7 +62,7 @@ port map(
 	rd2=>reg_rd2
 );
 
-operation:ual
+operation : ENTITY work.UAL(rtl)
 port map(
 	ualControl=>AluControl,
 	srcA=>ual_srcA, 
