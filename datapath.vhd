@@ -13,6 +13,7 @@ entity datapath is
         clock,Reset,MemtoReg,Branch,AluSrc,RegDst,
 		  RegWrite,Jump,MemReadIn,MemWriteIn: in std_logic;
         AluControl : in std_logic_vector(3 downto 0);
+        
         Instruction,ReadData : in std_logic_vector(31 downto 0);
 		  
         MemReadOut,MemWriteOut : out std_logic;
@@ -46,18 +47,16 @@ signal signal_pc:std_logic_vector(31 downto 0);
 
 
 component ual is
-
 port(
 	ualControl : IN  std_logic_vector(3 DOWNTO 0);
-   srcA, srcB : IN  std_logic_vector(31 DOWNTO 0);
-   result     : OUT std_logic_vector(31 DOWNTO 0);
-   cout, zero : OUT std_logic
+	srcA, srcB : IN  std_logic_vector(31 DOWNTO 0);
+	result     : OUT std_logic_vector(31 DOWNTO 0);
+	cout, zero : OUT std_logic
 );
 
 end component;
 
 component regfile is
-
 port(
 
 	clk          : IN  std_logic;
@@ -156,7 +155,9 @@ pcPlus4<=std_logic_vector(unsigned( signal_pc ) + 4);
 pcBranch<=std_logic_vector(unsigned( pcPlus4 ) +unsigned(signImmSh));
 signImmSh<=std_logic_vector(resize(unsigned(signImm), 30)) &"00";
 
-pcJump<=pcPlus4 OR (instruction(25 downto 0)&"00");--à revisiter
+--pcPlus 4 (chemin normal du pc) OU (4 bit supperieurs de PcPlus4 avec l'addresse contenue dans l'instruction multipliee par 2)
+pcJump<=pcPlus4 OR (pcPlus4(31 downto 28) & (instruction(25 downto 0) & "00"));
+
 
 signImm<=std_logic_vector(resize(unsigned(instruction(15 downto 0)), 32) sll 16);
 MemReadOut<=MemReadIn;
