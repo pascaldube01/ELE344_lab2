@@ -50,12 +50,12 @@ begin
 				aluControl => ALUControl_s);
 				
 	--instanciation du datapath
-	DATAPATH : ENTITY work.datapath(***PLACEHOLDER***)
+	DATAPATH : ENTITY work.datapath(datapath_Arc)
 	PORT MAP (	--entrees provenant de l'exterieur
 				Instruction => Instruction,
 				ReadData => ReadData,
 				Reset => reset,
-				Clk => clock,
+				clock => clock,
 				--entrees provenant du controlleur
 				MemtoReg => memtoReg_s,
 				Branch => branch_s,
@@ -63,8 +63,8 @@ begin
 				RegDst => RegDst_s,
 				RegWrite => RegWrite_s,
 				Jump => Jump_s,
-				MemReadIn => MemReadIn_s,
-				MemWriteIn => MemWriteIn_s,
+				MemReadIn => MemRead_s,
+				MemWriteIn => MemWrite_s,
 				AluControl => AluControl_s,
 				--sorties vers l'exterieur
 				MemReadOut => memRead,

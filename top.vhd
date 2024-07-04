@@ -27,7 +27,7 @@ begin
 
 	-- instanciation de la memoire d'instruction
 	IMEM : ENTITY work.imem(imem_arch)
-	PORT MAP(	addresse => PC_s,
+	PORT MAP(	adresse => PC_s,
 				data => Instruction_s);
  			
  			
@@ -51,8 +51,8 @@ begin
 	PORT MAP(	-- entrees
 				clk => clock,
 				memWrite => memWrite_S,
-				addresse => aluResult_S,
-				writeData_writeData_S,
+				adresse => aluResult_S,
+				writeData => writeData_S,
 				--sortie
 				readData => ReadData_S );
 

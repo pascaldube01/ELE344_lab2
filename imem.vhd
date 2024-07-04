@@ -12,7 +12,7 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
 ENTITY imem IS -- Memoire d'instructions
-  PORT (adresse : IN  std_logic_vector(5 DOWNTO 0); -- Taille a modifier
+  PORT (adresse : IN  std_logic_vector(31 DOWNTO 0); -- Taille a modifier
                                                     -- selon le programme 
         data : OUT std_logic_vector(31 DOWNTO 0));
 END;  -- imem;
@@ -41,7 +41,7 @@ ARCHITECTURE imem_arch OF imem IS
     15 => x"ac452003",
     16 => x"10a70001",
     17 => x"00a33825",
-	 18 => x"8ce42003",
+	18 => x"8ce42003",
     19 => x"08000000");
 BEGIN
   PROCESS (adresse)
