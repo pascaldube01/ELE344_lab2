@@ -6,7 +6,7 @@ use ieee.std_logic_misc.ALL;
 ENTITY top is
 	port(
 		reset 		: in std_logic;
-		clock 		: in std_logic;
+		clk 		: in std_logic;
 		
 		PC			: out std_logic_vector (31 downto 0);
 		WriteData	: out std_logic_vector (31 downto 0);
@@ -36,7 +36,7 @@ begin
  	PORT MAP(	-- entrees
  				Instruction => instruction_s,
  				reset => reset,
- 				clock => clock,
+ 				clock => clk,
  				ReadData => ReadDAta_s,
  				--sorties
  				PC => PC_s,
@@ -49,7 +49,7 @@ begin
  	-- instanciaiton de la memoire de donnees
 	DMEM: ENTITY work.dmem(dmem_arch)
 	PORT MAP(	-- entrees
-				clk => clock,
+				clk => clk,
 				memWrite => memWrite_S,
 				adresse => aluResult_S,
 				writeData => writeData_S,

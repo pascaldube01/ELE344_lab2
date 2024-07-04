@@ -52,7 +52,6 @@ port(
    srcA, srcB : IN  std_logic_vector(31 DOWNTO 0);
    result     : OUT std_logic_vector(31 DOWNTO 0);
    cout, zero : OUT std_logic
-
 );
 
 end component;
@@ -62,11 +61,10 @@ component regfile is
 port(
 
 	clk          : IN  std_logic;
-   we           : IN  std_logic; -- Write enable (RegWrite)
-   ra1, ra2, wa : IN  std_logic_vector(4 DOWNTO 0);  -- Adresses de lecture
-   wd           : IN  std_logic_vector(31 DOWNTO 0);  -- Donnee d'ecriture
-   rd1, rd2     : OUT std_logic_vector(31 DOWNTO 0)  -- Donnees de lecture
-	
+	we           : IN  std_logic; -- Write enable (RegWrite)
+	ra1, ra2, wa : IN  std_logic_vector(4 DOWNTO 0);  -- Adresses de lecture
+	wd           : IN  std_logic_vector(31 DOWNTO 0);  -- Donnee d'ecriture
+	rd1, rd2     : OUT std_logic_vector(31 DOWNTO 0)  -- Donnees de lecture	
 );
 
 end component;
@@ -77,83 +75,77 @@ begin
 
 registre:regfile
 port map(
-
-clk=>clock,
-we=>RegWrite,
-ra1=>Instruction(25 downto 21),
-ra2=>Instruction(20 downto 16),
-wa=>reg_wa,
-wd=>resultat,
-rd1=>ual_srcA,
-rd2=>reg_rd2
+	clk=>clock,
+	we=>RegWrite,
+	ra1=>Instruction(25 downto 21),
+	ra2=>Instruction(20 downto 16),
+	wa=>reg_wa,
+	wd=>resultat,
+	rd1=>ual_srcA,
+	rd2=>reg_rd2
 );
 
 operation:ual
 port map(
-ualControl=>AluControl,
-srcA=>ual_srcA, 
-srcB=>ual_srcB, 
-result=>ual_result,
-zero=>ual_zero	
+	ualControl=>AluControl,
+	srcA=>ual_srcA, 
+	srcB=>ual_srcB, 
+	result=>ual_result,
+	zero=>ual_zero	
 );
 --------
 process(RegDst,instruction)
 begin
-if RegDst ='1' then
-reg_wa<=Instruction(15 downto 11);
-else
-reg_wa<=Instruction(20 downto 16);
-end if;
+	if RegDst ='1' then
+		reg_wa<=Instruction(15 downto 11);
+	else
+		reg_wa<=Instruction(20 downto 16);
+	end if;
 end process;
 --------
 process(AluSrc,signImm,reg_rd2)
 begin
-if AluSrc ='1' then
-ual_srcB<=signImm;
-else
-ual_srcB<=reg_rd2;
-end if;
-
+	if AluSrc ='1' then
+		ual_srcB<=signImm;
+	else
+		ual_srcB<=reg_rd2;
+	end if;
 end process;
 ----------
 process(MemtoReg,ReadData,ual_result)
 begin
-if MemtoReg ='1' then
-resultat<=ReadData;
-else
-resultat<=ual_result;
-end if;
-
+	if MemtoReg ='1' then
+		resultat<=ReadData;
+	else
+		resultat<=ual_result;
+	end if;
 end process;
 ------------
 process(pcSrc,pcBranch,pcPlus4)
 begin
-if pcSrc ='1' then
-pcNextBr<=pcBranch;
-else
-pcNextBr<=pcPlus4;
-end if;
-
+	if pcSrc ='1' then
+		pcNextBr<=pcBranch;
+	else
+		pcNextBr<=pcPlus4;
+	end if;
 end process;
 -------------
 process(Jump,pcBranch,pcPlus4)
 begin
-if Jump ='1' then
-pcNext<=pcJump;
-else
-pcNext<=pcNextBr;
-end if;
-
+	if Jump ='1' then
+		pcNext<=pcJump;
+	else
+		pcNext<=pcNextBr;
+	end if;
 end process;
 -------------
 process(clock,reset)
 begin
-if reset = '1' then
- signal_pc <=(others => '0');  
-elsif rising_edge(clock) then
-signal_pc<=pcNext;  
-end if;
-
+	if reset = '1' then
+		signal_pc <=(others => '0');  
+	elsif rising_edge(clock) then
+		signal_pc<=pcNext;  
+	end if;
 end process;
 -------------
 pc<=signal_pc;
