@@ -125,7 +125,7 @@ begin
 	end if;
 end process;
 -------------
-pc<=signal_pc;
+pc<= "00" & signal_pc(31 downto 2);
 AluResult<=ual_result;
 WriteData<=reg_rd2;
 pcSrc<=Branch AND  ual_zero;
