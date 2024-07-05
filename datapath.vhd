@@ -134,7 +134,7 @@ pcBranch<=std_logic_vector(unsigned( pcPlus4 ) +unsigned(signImmSh));
 signImmSh<=std_logic_vector(resize(unsigned(signImm), 30)) &"00";
 
 --pcPlus 4 (chemin normal du pc) OU (4 bit supperieurs de PcPlus4 avec l'addresse contenue dans l'instruction multipliee par 2)
-pcJump<=pcPlus4 OR (pcPlus4(31 downto 28) & (instruction(25 downto 0) & "00"));
+pcJump<=(pcPlus4(31 downto 28) & (instruction(25 downto 0) & "00"));
 
 
 signImm<=std_logic_vector(resize(unsigned(instruction(15 downto 0)), 32) sll 16);
