@@ -3,3 +3,4 @@
 !*.vhd
 !*.sdc
 !*.gitignore
+!*.asm
