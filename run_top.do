@@ -14,3 +14,4 @@ add wave -r -hexadecimal *
 force clk 1,0 10 ns -repeat 20 ns
 force reset 1,0 15 ns
 run 500 ns
+wave zoom full

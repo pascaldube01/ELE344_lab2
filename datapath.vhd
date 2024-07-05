@@ -33,7 +33,6 @@ signal reg_wa:std_logic_vector(4 DOWNTO 0);
 signal resultat:std_logic_vector(31 DOWNTO 0);
 signal reg_rd2:std_logic_vector(31 DOWNTO 0);
 --------------
-signal immediat:std_logic_vector(15 DOWNTO 0);
 signal signImm:std_logic_vector(31 DOWNTO 0);
 signal pcPlus4:std_logic_vector(31 DOWNTO 0);
 signal adresse:std_logic_vector(25 DOWNTO 0);
@@ -137,7 +136,7 @@ signImmSh<=std_logic_vector(resize(unsigned(signImm), 30)) &"00";
 pcJump<=(pcPlus4(31 downto 28) & (instruction(25 downto 0) & "00"));
 
 
-signImm<=std_logic_vector(resize(unsigned(instruction(15 downto 0)), 32) sll 16);
+signImm<=std_logic_vector(resize(signed(instruction(15 downto 0)), 32));
 MemReadOut<=MemReadIn;
 MemWriteOut<=MemWriteIn;
 
