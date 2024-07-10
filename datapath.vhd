@@ -106,7 +106,7 @@ begin
 	end if;
 end process;
 -------------
-process(Jump,pcBranch,pcPlus4)
+process(Jump,pcJump, pcNExtBr)
 begin
 	if Jump ='1' then
 		pcNext<=pcJump;
@@ -129,7 +129,7 @@ AluResult<=ual_result;
 WriteData<=reg_rd2;
 pcSrc<=Branch AND  ual_zero;
 pcPlus4<=std_logic_vector(unsigned( signal_pc ) + 4);
-pcBranch<=std_logic_vector(unsigned( pcPlus4 ) +unsigned(signImmSh));
+pcBranch<=std_logic_vector(unsigned( pcPlus4 ) + unsigned(signImmSh));
 signImmSh<=std_logic_vector(resize(unsigned(signImm), 30)) &"00";
 
 --pcPlus 4 (chemin normal du pc) OU (4 bit supperieurs de PcPlus4 avec l'addresse contenue dans l'instruction multipliee par 2)
