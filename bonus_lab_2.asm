@@ -2,7 +2,7 @@
 addi $2 $0 0
 
 #mise en place de l'addresse memoire de base
-addi $3 $0 0#0x10010000 pour simu, a changer a 0 pour reel
+addi $3 $0 0#0x10010000 #pour simu, changer a 0 pour reel
 
 #mise en place des valeurs pour verifier quand incrementer les compteurs
 addi $4 $4 1	#compteur de base (cpu freq/10)
@@ -16,10 +16,7 @@ addi $11 $0 0	#10 seconde
 addi $12 $0 0	#minutes
 
 #mise a 0 des cases memoires
-sw $0 0x0($3) #dixieme
-sw $0 0x4($3) #secondes
-sw $0 0x8($3) #10 secondes
-sw $0 0xc($3) #minutes
+j updatemem
 
 
 compte: #si temps ecoule, on ajoute 1 dixieme
