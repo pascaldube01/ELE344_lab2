@@ -28,8 +28,8 @@ j compte
 
 incr_csec: #si 10 ms, on ajoute 1 secone
 addi $2 $0 0 #reset compteur de base
-addi $9 $9 1
-beq $9 $5 incr_100ms
+addi $16 $9 1
+beq $16 $5 incr_100ms
 j updatemem
 
 
