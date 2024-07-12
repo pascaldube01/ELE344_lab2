@@ -19,7 +19,7 @@ END;  -- imem;
 
 ARCHITECTURE imem_arch OF imem_bonus IS
 
-  CONSTANT TAILLE_ROM : positive := 34;  -- taille de la rom (modifier au besoin)
+  CONSTANT TAILLE_ROM : positive := 32;  -- taille de la rom (modifier au besoin)
   TYPE romtype IS ARRAY (0 TO TAILLE_ROM) OF std_logic_vector(31 DOWNTO 0);
 
   CONSTANT Rom : romtype := (
