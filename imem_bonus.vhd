@@ -25,7 +25,7 @@ ARCHITECTURE imem_arch OF imem_bonus IS
   CONSTANT Rom : romtype := (
     0  => x"20020000",
     1  => x"20030000",
-    2  => x"20040001",
+    2  => x"20041388",
     3  => x"2005000a",
     4  => x"20080006",
     5  => x"20090000",
