@@ -62,10 +62,10 @@ begin
 		elsif (dataAddress = "00000000000000000000000000001100") then
 			minutes <= WriteData(3 downto 0);
 		else
-			dixiemeSecondes = "1111";
-			secondes  = "1111";
-			dixSecondes = "1111";
-			minutes  = "1111";
+			dixiemeSecondes <= "1111";
+			secondes  <= "1111";
+			dixSecondes <= "1111";
+			minutes  <= "1111";
 		end if;
 		
 	end if;
