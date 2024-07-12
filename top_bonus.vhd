@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 use ieee.std_logic_misc.ALL;
 
-ENTITY top is
+ENTITY top_bonus is
 	port(
 		reset 		: in std_logic;
 		clk 		: in std_logic;
@@ -12,10 +12,10 @@ ENTITY top is
 		WriteData	: out std_logic_vector (31 downto 0);
 		AluResult	: out std_logic_vector (31 downto 0);
 		MemWrite	: out std_logic);
-end top;
+end top_bonus;
 
 
-architecture run of top is
+architecture run of top_bonus is
 	SIGNAL PC_s 			: std_logic_vector (31 downto 0);
 	SIGNAL Instruction_s	: std_logic_vector (31 downto 0);
 	SIGNAL WriteData_s 		: std_logic_vector (31 downto 0);
@@ -27,7 +27,7 @@ architecture run of top is
 begin
 
 	-- instanciation de la memoire d'instruction
-	IMEM : ENTITY work.imem(imem_arch)
+	IMEM : ENTITY work.imem_bonus(imem_arch)
 	PORT MAP(	adresse => PC_s,
 				data => Instruction_s);
  			

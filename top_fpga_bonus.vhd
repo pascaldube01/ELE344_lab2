@@ -37,7 +37,7 @@ ARCHITECTURE rtl OF top_fpga_bonus IS
   SIGNAL minutes				: std_logic_vector (3 downto 0);
 BEGIN  -- ARCHITECTURE tb
   -- Instantiation du top
-  DUT : ENTITY work.top
+  DUT : ENTITY work.top_bonus
     PORT MAP (Reset       => KEY(0),
               clk       => KEY(1),
               PC          => PC,

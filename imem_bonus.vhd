@@ -11,13 +11,13 @@ LIBRARY std;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
-ENTITY imem IS -- Memoire d'instructions
+ENTITY imem_bonus IS -- Memoire d'instructions
   PORT (adresse : IN  std_logic_vector(31 DOWNTO 0); -- Taille a modifier
                                                     -- selon le programme 
         data : OUT std_logic_vector(31 DOWNTO 0));
 END;  -- imem;
 
-ARCHITECTURE imem_arch OF imem IS
+ARCHITECTURE imem_arch OF imem_bonus IS
 
   CONSTANT TAILLE_ROM : positive := 32;  -- taille de la rom (modifier au besoin)
   TYPE romtype IS ARRAY (0 TO TAILLE_ROM) OF std_logic_vector(31 DOWNTO 0);
