@@ -5,7 +5,8 @@ addi $2 $0 0
 addi $3 $0 0#0x10010000 #pour simu, changer a 0 pour reel
 
 #mise en place des valeurs pour verifier quand incrementer les compteurs
-addi $4 $0 10000#compteur de base (cpu freq/10)
+addi $4 $0 10000 #compteur de base
+addi $16 $0 100 #compteur de secondaire
 addi $5 $0 10	#secondes (sont tous des multiples de 10)
 addi $8 $0 6	#minutes
 
@@ -21,12 +22,19 @@ j updatemem
 
 compte: #si temps ecoule, on ajoute 1 dixieme
 addi $2 $2 1
-beq $2 $4 incr_100ms 
+beq $2 $4 incr_csec 
 j compte
 
 
-incr_100ms: #si 10 ms, on ajoute 1 secone
+incr_csec: #si 10 ms, on ajoute 1 secone
 addi $2 $0 0 #reset compteur de base
+addi $9 $9 1
+beq $9 $5 incr_100ms
+j updatemem
+
+
+incr_100ms: #si 10 ms, on ajoute 1 secone
+addi $16 $0 0 #reset compteur secondaire
 addi $9 $9 1
 beq $9 $5 incr_sec
 j updatemem
