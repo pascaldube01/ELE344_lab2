@@ -23,7 +23,7 @@ ARCHITECTURE imem_arch OF imem_bonus IS
   TYPE romtype IS ARRAY (0 TO TAILLE_ROM) OF std_logic_vector(31 DOWNTO 0);
 
   CONSTANT Rom : romtype := (
-    0  => x"20020000",
+   0  => x"20020000",
     1  => x"20030000",
     2  => x"20042710",
     3  => x"20100064",
@@ -38,7 +38,7 @@ ARCHITECTURE imem_arch OF imem_bonus IS
     12  => x"10440001",
     13  => x"0800000b",
     14  => x"20020000",
-    15  => x"21300001",
+    15  => x"22100001",
     16  => x"12050001",
     17  => x"08000021",
     18  => x"20100000",
