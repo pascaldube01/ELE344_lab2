@@ -15,7 +15,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
-ENTITY top_fpga IS
+ENTITY top_fpga_bonus IS
   PORT (KEY  : IN  std_logic_vector (0 TO 1);   -- KEY[0]=reset, KEY[1]=clock
         HEX0 : OUT std_logic_vector (0 TO 6);   -- PC(3 downto 0) 
         HEX1 : OUT std_logic_vector (0 TO 6);   -- PC(7 downto 4) 
@@ -23,9 +23,9 @@ ENTITY top_fpga IS
         HEX5 : OUT std_logic_vector (0 TO 6);   -- DataAddress(7 downto 4) 
         HEX6 : OUT std_logic_vector (0 TO 6);   -- WriteData(3 downto 0) 
         HEX7 : OUT std_logic_vector (0 TO 6));
-END ENTITY top_fpga;
+END ENTITY top_fpga_bonus;
 
-ARCHITECTURE rtl OF top_fpga IS
+ARCHITECTURE rtl OF top_fpga_bonus IS
   SIGNAL Memwrite               : std_logic;
   SIGNAL PC                     : std_logic_vector (31 DOWNTO 0);
   SIGNAL WriteData, DataAddress : std_logic_vector (31 DOWNTO 0);
@@ -43,21 +43,35 @@ BEGIN  -- ARCHITECTURE tb
               PC          => PC,
               WriteData   => WriteData,
               AluResult => DataAddress,
-              MemWrite => memWrite);
+              Memwrite => memWrite);
 
 
   
   
 --on a besoin de savoir si on a modifie la ram
+affichage : process (memwrite, DataAddress)
+begin
+	if(memWrite = '1') then
+		if(dataAddress = "00000000000000000000000000000000") then
+			dixiemeSecondes <= WriteData(3 downto 0);
+		elsif (dataAddress = "00000000000000000000000000000100") then
+			secondes <= WriteData(3 downto 0);
+		elsif (dataAddress = "00000000000000000000000000001000") then
+			dixSecondes <= WriteData(3 downto 0);
+		elsif (dataAddress = "00000000000000000000000000001100") then
+			minutes <= WriteData(3 downto 0);
+		end if;
+		
+	end if;
 
+end process;
 
 
 
   -- Afficheurs 7-segments pour les ports de sortie
-  dec7seg_0 : ENTITY work.dec7seg PORT MAP (HEX0, PC(3 DOWNTO 0));
-  dec7seg_1 : ENTITY work.dec7seg PORT MAP (HEX1, PC(7 DOWNTO 4));
-  dec7seg_4 : ENTITY work.dec7seg PORT MAP (HEX4, DataAddress(3 DOWNTO 0));
-  dec7seg_5 : ENTITY work.dec7seg PORT MAP (HEX5, DataAddress(7 DOWNTO 4));
-  dec7seg_6 : ENTITY work.dec7seg PORT MAP (HEX6, WriteData(3 DOWNTO 0));
-  dec7seg_7 : ENTITY work.dec7seg PORT MAP (HEX7, WriteData(7 DOWNTO 4));
+  dec7seg_0 : ENTITY work.dec7seg PORT MAP (HEX0, dixiemeSecondes);
+  dec7seg_1 : ENTITY work.dec7seg PORT MAP (HEX1, secondes);
+  dec7seg_4 : ENTITY work.dec7seg PORT MAP (HEX4, dixSecondes);
+  dec7seg_5 : ENTITY work.dec7seg PORT MAP (HEX5, minutes);
 END ARCHITECTURE rtl;
+

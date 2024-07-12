@@ -15,5 +15,5 @@ vsim top_fpga
 add wave -r -hexadecimal *
 force KEY(1) 1,0 10 ns -repeat 20 ns
 force KEY(0) 1,0 15 ns
-run 500 ns
+run 300000 ns
 wave zoom full
