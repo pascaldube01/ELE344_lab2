@@ -38,8 +38,8 @@ ARCHITECTURE rtl OF top_fpga_bonus IS
 BEGIN  -- ARCHITECTURE tb
   -- Instantiation du top
   DUT : ENTITY work.top_bonus
-    PORT MAP (Reset       => KEY(0),
-              clk       => KEY(1),
+    PORT MAP (Reset       => not(KEY(0)),
+              clk       => MAX10_CLK1_50,
               PC          => PC,
               WriteData   => WriteData,
               AluResult => DataAddress,
@@ -51,7 +51,7 @@ BEGIN  -- ARCHITECTURE tb
 --on a besoin de savoir si on a modifie la ram
 affichage : process (memwrite, DataAddress)
 begin
-	if(memWrite = '1') then
+	if(memWrite = '1') and (rising_edge(clock)) then
 		if(dataAddress = "00000000000000000000000000000000") then
 			dixiemeSecondes <= WriteData(3 downto 0);
 		elsif (dataAddress = "00000000000000000000000000000100") then
