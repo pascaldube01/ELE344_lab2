@@ -4,3 +4,4 @@
 !*.sdc
 !*.gitignore
 !*.asm
+!*.v
