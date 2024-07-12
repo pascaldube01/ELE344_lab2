@@ -5,7 +5,7 @@ addi $2 $0 0
 addi $3 $0 0#0x10010000 #pour simu, changer a 0 pour reel
 
 #mise en place des valeurs pour verifier quand incrementer les compteurs
-addi $4 $0 5000#compteur de base (cpu freq/10)
+addi $4 $0 100000#compteur de base (cpu freq/10)
 addi $5 $0 10	#secondes (sont tous des multiples de 10)
 addi $8 $0 6	#minutes
 
