@@ -17,6 +17,7 @@ USE ieee.std_logic_1164.ALL;
 
 ENTITY top_fpga_bonus IS
   PORT (KEY  : IN  std_logic_vector (0 TO 1);   -- KEY[0]=reset, KEY[1]=clock
+		  MAX10_CLK1_50 : in std_logic;
         HEX0 : OUT std_logic_vector (0 TO 6);   -- PC(3 downto 0) 
         HEX1 : OUT std_logic_vector (0 TO 6);   -- PC(7 downto 4) 
         HEX4 : OUT std_logic_vector (0 TO 6);   -- DataAddress(3 downto 0) 
@@ -51,7 +52,7 @@ BEGIN  -- ARCHITECTURE tb
 --on a besoin de savoir si on a modifie la ram
 affichage : process (memwrite, DataAddress)
 begin
-	if(memWrite = '1') and (rising_edge(clock)) then
+	if(memWrite = '1') and (rising_edge(MAX10_CLK1_50)) then
 		if(dataAddress = "00000000000000000000000000000000") then
 			dixiemeSecondes <= WriteData(3 downto 0);
 		elsif (dataAddress = "00000000000000000000000000000100") then
@@ -60,6 +61,11 @@ begin
 			dixSecondes <= WriteData(3 downto 0);
 		elsif (dataAddress = "00000000000000000000000000001100") then
 			minutes <= WriteData(3 downto 0);
+		else
+			dixiemeSecondes = "1111";
+			secondes  = "1111";
+			dixSecondes = "1111";
+			minutes  = "1111";
 		end if;
 		
 	end if;
